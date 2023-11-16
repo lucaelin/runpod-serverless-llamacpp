@@ -13,7 +13,7 @@ llama = subprocess.Popen(["./llama",
                           '-c', os.environ.get("ctx_size", '2048'),
                           '--mlock',
                           '--embedding',
-                          '-threads', os.environ.get("threads", '0'),
+                          # '--threads', os.environ.get("threads", '0'),
                           '-ngl', os.environ.get("n_gpu_layers", '1000')
                           ], stdout=subprocess.PIPE, text=True)
 
