@@ -17,12 +17,17 @@ RUN python3.11 -m pip install --upgrade pip && \
 # llama server
 COPY --from=llama /app/server ./llama
 
-# model download
-ENV MODEL_DOWNLOAD_URL=https://huggingface.co/TheBloke/TinyLlama-1.1B-intermediate-step-715k-1.5T-GGUF/resolve/main/tinyllama-1.1b-intermediate-step-715k-1.5t.Q3_K_S.gguf?download=true
+# model local copy
+COPY ./model.gguf ./model.gguf
+
+# model direct download
+#ENV MODEL_DOWNLOAD_URL=https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v0.3-GGUF/resolve/main/tinyllama-1.1b-chat-v0.3.Q8_0.gguf?download=true
+#RUN wget -O model.gguf $MODEL_DOWNLOAD_URL
+
+# model git download
 #ENV MODEL_REPO=https://huggingface.co/TheBloke/TinyLlama-1.1B-intermediate-step-715k-1.5T-GGUF
 #ENV MODEL_FILE=tinyllama-1.1b-intermediate-step-715k-1.5t.Q4_K_M.gguf
 
-RUN wget -O model.gguf $MODEL_DOWNLOAD_URL
 #RUN git lfs install
 #RUN git archive --remote=$MODEL_REPO HEAD ${MODEL_FILE} | tar xO
 #RUN mv ${MODEL_FILE} model.gguf
