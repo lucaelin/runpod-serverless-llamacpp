@@ -6,3 +6,17 @@
 # To learn more, see https://pip.pypa.io/en/stable/reference/requirements-file-format/
 
 runpod==1.3.3
+accelerate 
+peft 
+bitsandbytes 
+pandas 
+torch 
+huggingface_hub 
+sentencepiece
+git+https://github.com/huggingface/transformers 
+scipy 
+numpy
+huggingface_hub
+auto-gptq
+optimum
+py7zr
