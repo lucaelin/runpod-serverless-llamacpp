@@ -15,12 +15,6 @@ RUN rm /requirements.txt
 
 RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" python3.11 -m pip install llama-cpp-python 
 
-ARG HF_TOKEN
-ARG BASE_MODEL=TheBloke/Mistral-7B-Instruct-v0.2-GPTQ
-ARG BASE_MODEL_REV=gptq-8bit-32g-actorder_True
-ARG ADAPTER_MODEL='lucaelin/llm-useful'
-ARG ADAPTER_MODEL_REV='28042ec'
-
 # model local copy
 #COPY ./model.gguf ./model.gguf
 
@@ -42,16 +36,22 @@ ARG ADAPTER_MODEL_REV='28042ec'
 #RUN cp model_repo/config.json ./config.json
 #RUN rm -rf model_repo
 
+
+ARG BASE_MODEL=TheBloke/Mistral-7B-Instruct-v0.2-GPTQ
+ARG BASE_MODEL_REV=gptq-8bit-32g-actorder_True
 # hf cache model
 ENV BASE_MODEL=${BASE_MODEL}
 ENV BASE_MODEL_REV=${BASE_MODEL_REV}
 RUN huggingface-cli download --revision ${BASE_MODEL_REV} ${BASE_MODEL}
 
 # hf login
+ARG HF_TOKEN
 ENV HF_TOKEN=${HF_TOKEN}
 RUN huggingface-cli login --token ${HF_TOKEN}
 
 # hf cache adapter
+ARG ADAPTER_MODEL='lucaelin/llm-useful'
+ARG ADAPTER_MODEL_REV
 ENV ADAPTER_MODEL=${ADAPTER_MODEL}
 ENV ADAPTER_MODEL_REV=${ADAPTER_MODEL_REV}
 #RUN huggingface-cli download --revision ${ADAPTER_REV} ${ADAPTER_MODEL}
